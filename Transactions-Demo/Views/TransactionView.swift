@@ -69,7 +69,7 @@ struct TransactionView: View {
     }
 
     private var formattedAmount: String {
-        let prefix = transaction.type.lowercased() == "debit" ? "-" : "+"
+        let prefix = transaction.type == .debit ? "-" : "+"
         let amount = transaction.amount.formatted(
             .number.precision(.fractionLength(2)).locale(languageManager.language.locale)
         )
@@ -90,25 +90,26 @@ struct TransactionView: View {
     }
 
     private var amountColor: Color {
-        transaction.type.lowercased() == "debit" ? .red : .green
+        transaction.type == .debit ? .red : .green
     }
 
     private var statusColor: Color {
-        switch transaction.status.lowercased() {
-        case "completed", "posted", "settled": return .green
-        case "pending": return .orange
-        case "failed", "declined": return .red
-        default: return .secondary
+        switch transaction.status {
+        case .completed, .posted, .settled: return .green
+        case .pending: return .orange
+        case .failed, .declined: return .red
+        case .unknown: return .secondary
         }
     }
 
     private var iconName: String {
-        switch transaction.category.lowercased() {
-        case "food", "dining", "restaurants": return "fork.knife"
-        case "transport", "travel": return "car"
-        case "shopping": return "bag"
-        case "income", "salary": return "arrow.down.circle"
-        default: return transaction.type.lowercased() == "debit" ? "arrow.up.right" : "arrow.down.left"
+        switch transaction.category {
+        case .food, .dining, .restaurants: return "fork.knife"
+        case .transport, .travel: return "car"
+        case .shopping: return "bag"
+        case .income, .salary: return "arrow.down.circle"
+        case .entertainment, .fuel, .unknown:
+            return transaction.type == .debit ? "arrow.up.right" : "arrow.down.left"
         }
     }
 }
@@ -121,9 +122,9 @@ struct TransactionView: View {
             currency: "USD",
             description: "Lunch",
             merchant: "Cafe Nero",
-            category: "food",
-            status: "completed",
-            type: "debit",
+            category: .food,
+            status: .completed,
+            type: .debit,
             bookedAt: "2026-11-05T12:00:00Z"
         )
     )

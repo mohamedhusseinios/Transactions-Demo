@@ -31,11 +31,11 @@ final class LanguageManager: ObservableObject {
         L10n.string(key, language: language)
     }
 
-    func localizedCategory(_ category: String) -> String {
+    func localizedCategory(_ category: TransactionCategory) -> String {
         L10n.category(category, language: language)
     }
 
-    func localizedStatus(_ status: String) -> String {
+    func localizedStatus(_ status: TransactionStatus) -> String {
         L10n.status(status, language: language)
     }
 }

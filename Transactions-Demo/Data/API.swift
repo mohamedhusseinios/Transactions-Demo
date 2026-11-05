@@ -48,8 +48,8 @@ class API {
         let start = (page - 1) * limit
         let end = min(start + limit, total)
         let merchants = ["Cafe Nero", "Uber", "Amazon", "Spotify", "Payroll", "Shell", "Apple", "Netflix"]
-        let categories = ["food", "transport", "shopping", "entertainment", "income", "fuel", "shopping", "entertainment"]
-        let statuses = ["completed", "pending", "completed", "completed"]
+        let categories: [TransactionCategory] = [.food, .transport, .shopping, .entertainment, .income, .fuel, .shopping, .entertainment]
+        let statuses: [TransactionStatus] = [.completed, .pending, .completed, .completed]
 
         let data = (start..<end).map { index -> Transaction in
             let isCredit = index % 7 == 0
@@ -59,9 +59,9 @@ class API {
                 currency: "USD",
                 description: isCredit ? "Incoming transfer" : "Card purchase",
                 merchant: merchants[index % merchants.count],
-                category: isCredit ? "income" : categories[index % categories.count],
+                category: isCredit ? .income : categories[index % categories.count],
                 status: statuses[index % statuses.count],
-                type: isCredit ? "credit" : "debit",
+                type: isCredit ? .credit : .debit,
                 bookedAt: ISO8601DateFormatter().string(
                     from: Date().addingTimeInterval(TimeInterval(-index * 3600 * 5))
                 )

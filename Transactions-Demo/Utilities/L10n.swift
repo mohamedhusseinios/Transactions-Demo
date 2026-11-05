@@ -60,37 +60,35 @@ enum L10n {
         }
     }
 
-    static func category(_ value: String, language: AppLanguage) -> String {
-        let map: [String: (en: String, ar: String)] = [
-            "food": ("Food", "طعام"),
-            "dining": ("Dining", "مطاعم"),
-            "restaurants": ("Restaurants", "مطاعم"),
-            "transport": ("Transport", "مواصلات"),
-            "travel": ("Travel", "سفر"),
-            "shopping": ("Shopping", "تسوق"),
-            "entertainment": ("Entertainment", "ترفيه"),
-            "income": ("Income", "دخل"),
-            "salary": ("Salary", "راتب"),
-            "fuel": ("Fuel", "وقود")
+    static func category(_ value: TransactionCategory, language: AppLanguage) -> String {
+        let map: [TransactionCategory: (en: String, ar: String)] = [
+            .food: ("Food", "طعام"),
+            .dining: ("Dining", "مطاعم"),
+            .restaurants: ("Restaurants", "مطاعم"),
+            .transport: ("Transport", "مواصلات"),
+            .travel: ("Travel", "سفر"),
+            .shopping: ("Shopping", "تسوق"),
+            .entertainment: ("Entertainment", "ترفيه"),
+            .income: ("Income", "دخل"),
+            .salary: ("Salary", "راتب"),
+            .fuel: ("Fuel", "وقود"),
+            .unknown: ("Unknown", "غير معروف")
         ]
-        guard let entry = map[value.lowercased()] else {
-            return value.capitalized
-        }
+        let entry = map[value] ?? ("Unknown", "غير معروف")
         return language == .arabic ? entry.ar : entry.en
     }
 
-    static func status(_ value: String, language: AppLanguage) -> String {
-        let map: [String: (en: String, ar: String)] = [
-            "completed": ("Completed", "مكتمل"),
-            "posted": ("Posted", "مرحّل"),
-            "settled": ("Settled", "مسوّى"),
-            "pending": ("Pending", "قيد الانتظار"),
-            "failed": ("Failed", "فشل"),
-            "declined": ("Declined", "مرفوض")
+    static func status(_ value: TransactionStatus, language: AppLanguage) -> String {
+        let map: [TransactionStatus: (en: String, ar: String)] = [
+            .completed: ("Completed", "مكتمل"),
+            .posted: ("Posted", "مرحّل"),
+            .settled: ("Settled", "مسوّى"),
+            .pending: ("Pending", "قيد الانتظار"),
+            .failed: ("Failed", "فشل"),
+            .declined: ("Declined", "مرفوض"),
+            .unknown: ("Unknown", "غير معروف")
         ]
-        guard let entry = map[value.lowercased()] else {
-            return value.capitalized
-        }
+        let entry = map[value] ?? ("Unknown", "غير معروف")
         return language == .arabic ? entry.ar : entry.en
     }
 }

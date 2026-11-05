@@ -23,9 +23,9 @@ struct Transaction: Codable, Identifiable {
     let currency: String
     let description: String?
     let merchant: String?
-    let category: String
-    let status: String
-    let type: String
+    let category: TransactionCategory
+    let status: TransactionStatus
+    let type: TransactionType
     let bookedAt: String
     enum CodingKeys: String, CodingKey {
         case id, amount, currency, description, merchant, category, status, type
