@@ -1,0 +1,9 @@
+# Xcode
+xcuserdata/
+DerivedData/
+*.xcuserstate
+.DS_Store
+
+# Local agent and editor state
+.omc/
+.cursor/
